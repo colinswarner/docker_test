@@ -1,0 +1,19 @@
+app:
+  build: .
+  command: python -u app.py
+  ports:
+    - "5000:5000"
+  volumes:
+    - .:/app
+  links:
+    - db
+db:
+  image: docker-test-ynq9ya:latest
+  hostname: test_mongodb
+  environment:
+    - MONGO_INITDB_DATABASE=animal_db
+    - MONGO_
+  volumes:
+    - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
+  ports:
+    - 27017:27017
